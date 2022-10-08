@@ -1,4 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
+import { TooltipPosition } from "./common/ui/tooltip/tooltip.enums";
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,16 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-tooltips-tutorial';
+  TooltipPosition: typeof TooltipPosition = TooltipPosition;
+  x: number = 0;
+  y: number = 0;
+  coordinates = "";
+
+  @HostListener('mousemove', ['$event'])
+  onMouseMove($event: MouseEvent): void {
+      this.x = $event.clientX;
+      this.y = $event.clientY;
+      this.coordinates = `${this.x},${this.y}`;
+  }
+
 }

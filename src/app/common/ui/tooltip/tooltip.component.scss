@@ -6,18 +6,94 @@
   font-family: Arial;
   padding: 3px 6px;
   font-size: 13px;
-  margin-top: 5px;
-  transform: translateX(-50%);
+  opacity: 0;
 
   &::before {
     content: '';
     width: 0;
     height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid black;
     position: absolute;
-    left: calc(50% - 5px);
-    top: -5px;
+  }
+
+  &--visible {
+    opacity: 1;
+    transition: opacity 300ms;
+  }
+
+  &--light {
+    background-color: white;
+    color: black;
+
+    &::before {
+      border: 5px solid white;
+    }
+  }
+
+  &--dark {
+    background-color: black;
+    color: white;
+
+    &::before {
+      border: 5px solid black;
+    }
+  }
+
+  &--below {
+    transform:translateX(-50%);
+    margin-top: 7px;
+
+    &::before {
+      border-left-color: transparent;
+      border-right-color: transparent;
+      border-top: none;
+      left: calc(50% - 5px);
+      top: -5px;
+    }
+  }
+
+  &--above {
+    transform:translate(-50%, -100%);
+    margin-bottom: 7px;
+
+    &::before {
+      border-left-color: transparent;
+      border-right-color: transparent;
+      border-bottom: none;
+      left: calc(50% - 5px);
+      bottom: -5px;
+    }
+  }
+
+  &--left {
+    transform:translate(calc(-100% - 7px), -50%);
+
+    &::before {
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-right: none;
+      right: -5px;
+      top: calc(50% - 5px);
+    }
+  }
+
+  &--right {
+    transform:translateY(-50%);
+    margin-left: 7px;
+
+    &::before {
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-left: none;
+      left: -5px;
+      top: calc(50% - 5px);
+    }
+  }
+
+  &--dynamic {
+    margin-left: 20px;
+
+    &::before {
+      display: none;
+    }
   }
 }
