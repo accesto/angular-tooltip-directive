@@ -21,15 +21,15 @@ export class TooltipDirective {
   @Input() tooltip = '';
   @Input() position: TooltipPosition = TooltipPosition.DEFAULT;
   @Input() theme: TooltipTheme = TooltipTheme.DEFAULT;
-  @Input() showDelay: number = 0;
-  @Input() hideDelay: number = 0;
+  @Input() showDelay = 0;
+  @Input() hideDelay = 0;
 
   private componentRef: ComponentRef<any> | null = null;
-  private showTimeout: number | undefined;
-  private hideTimeout: number | undefined;
-  private touchTimeout: number | undefined;
+  private showTimeout?: number;
+  private hideTimeout?: number;
+  private touchTimeout?: number;
 
-  constructor(private elementRef: ElementRef, private viewContainer: ViewContainerRef, private appRef: ApplicationRef,
+  constructor(private elementRef: ElementRef, private appRef: ApplicationRef,
               private componentFactoryResolver: ComponentFactoryResolver, private injector: Injector) {
   }
 
@@ -72,10 +72,11 @@ export class TooltipDirective {
       this.componentRef = componentFactory.create(this.injector);
 
       this.appRef.attachView(this.componentRef.hostView);
-      const domElem = (this.componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-      document.body.appendChild(domElem);
+      const [tooltipDOMElement] = (this.componentRef.hostView as EmbeddedViewRef<any>).rootNodes;
 
       this.setTooltipComponentProperties();
+
+      document.body.appendChild(tooltipDOMElement);
       this.showTimeout = window.setTimeout(this.showTooltip.bind(this), this.showDelay);
     }
   }
