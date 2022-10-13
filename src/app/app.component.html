@@ -1,1 +1,26 @@
-<div class="cat-icon" [tooltip]="'Meow!'"></div>
+<div class="demo-table">
+  <div class="demo-table__row">
+    <div class="demo-table__column">
+      <div class="icon icon--cat" [tooltip]="'Meow on the LEFT!'" position="left"></div>
+    </div>
+    <div class="demo-table__column">
+      <div class="icon icon--cat" [tooltip]="'Meow on the RIGHT!'" position="right"></div>
+    </div>
+  </div>
+  <div class="demo-table__row">
+    <div class="demo-table__column demo-table__column--dark">
+      <div class="icon icon--vader" [tooltip]="'Welcome to the DARK side!'" position="below" theme="light"></div>
+    </div>
+  </div>
+  <div class="demo-table__row">
+    <div class="demo-table__column">
+      <div class="icon icon--cat" [tooltip]="'Hide and seek!'" position="right" showDelay="300" hideDelay="500"></div>
+    </div>
+  </div>
+  <div class="demo-table__row">
+    <div class="demo-table__column">
+      <canvas class="canvas" [tooltip]="coordinates" position="dynamic"></canvas>
+    </div>
+  </div>
+</div>
+
