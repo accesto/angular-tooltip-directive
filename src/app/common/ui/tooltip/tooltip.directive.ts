@@ -1,6 +1,5 @@
 import {
   ApplicationRef,
-  ComponentFactoryResolver,
   ComponentRef,
   Directive,
   ElementRef,
@@ -30,7 +29,7 @@ export class TooltipDirective {
   private touchTimeout?: number;
 
   constructor(private elementRef: ElementRef, private appRef: ApplicationRef,
-              private componentFactoryResolver: ComponentFactoryResolver, private injector: Injector) {
+              private viewContainerRef: ViewContainerRef, private injector: Injector) {
   }
 
   @HostListener('mouseenter')
@@ -68,10 +67,8 @@ export class TooltipDirective {
   private initializeTooltip() {
     if (this.componentRef === null) {
       window.clearInterval(this.hideDelay);
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(TooltipComponent);
-      this.componentRef = componentFactory.create(this.injector);
+      this.componentRef = this.viewContainerRef.createComponent(TooltipComponent, {injector: this.injector});
 
-      this.appRef.attachView(this.componentRef.hostView);
       const [tooltipDOMElement] = (this.componentRef.hostView as EmbeddedViewRef<any>).rootNodes;
 
       this.setTooltipComponentProperties();
